@@ -5,4 +5,4 @@ title: JesKingDev/PKM Scripts
 description: PKM tool scripts and plugins, currently for Roam Research and OmniFocus
 show_downloads: true
 github:
-  omnifocus_url: md-link-to-selected-object.omnifocusjs
+  omnifocus_url: copy-roam-link.omnifocusjs

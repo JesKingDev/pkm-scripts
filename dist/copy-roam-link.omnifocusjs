@@ -4,10 +4,10 @@
 	"author": "Jessica King",
 	"identifier": "com.jessicaking.create-markdown-link",
 	"version": "1.0",
-	"description": "Places a markdown formatted link to the selected task, project, or folder on the clipboard. Created for use with Roam Research",
-	"label": "Copy Markdown Link to Object",
-	"shortLabel": "Copy .md Link",
-	"paletteLabel": ".md link",
+	"description": "Copies to the clipboard a Roam Research formatted link to the selected task, project, or folder.",
+	"label": "Copy Roam Link",
+	"shortLabel": "Copy Roam Link",
+	"paletteLabel": "Roam link",
 	"image": "link.badge.plus"
 }*/
 (() => {

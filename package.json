@@ -8,7 +8,7 @@
     }
   },
   "scripts": {
-    "build": "cp omnifocus/*.*js dist && cp README.md dist/index.md",
+    "build": "doctoc README.md && cp omnifocus/*.*js dist && cp README.md dist/index.md",
     "postinstall": "node ./node_modules/husky/lib/bin install",
     "deploy": "git push origin `git subtree split --prefix dist main`:gh-pages --force"
   },
