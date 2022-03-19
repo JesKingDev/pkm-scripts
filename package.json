@@ -1,0 +1,18 @@
+{
+  "name": "jeskingdev-pkm-scripts",
+  "version": "1.0.0",
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run prod"
+    }
+  },
+  "scripts": {
+    "prod": "cp omnifocus/*.*js dist && cp roam/*.css dist",
+    "postinstall": "node ./node_modules/husky/lib/bin install",
+    "deploy": "git push origin `git subtree split --prefix dist main`:gh-pages --force"
+  },
+  "devDependencies": {
+    "husky": "^7.0.4"
+  }
+}
+`
