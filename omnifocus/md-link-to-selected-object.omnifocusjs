@@ -1,0 +1,35 @@
+/*{
+	"type": "action",
+	"targets": ["omnifocus"],
+	"author": "Jessica King",
+	"identifier": "com.jessicaking.create-markdown-link",
+	"version": "1.0",
+	"description": "Places a markdown formatted link to the selected task, project, or folder on the clipboard.",
+	"label": "Copy Markdown Link to Object",
+	"shortLabel": "Copy .md Link",
+	"paletteLabel": ".md link",
+	"image": "gearshape"
+}*/
+(() => {
+	var action = new PlugIn.Action(function(selection, sender){
+		// action code
+		// selection options: tasks, projects, folders, tags, allObjects
+		var item = selection.databaseObjects[0]
+		if (item instanceof Folder){
+			var urlStr = "omnifocus:///folder/"
+		} else {
+			var urlStr = "omnifocus:///task/"
+		}
+		var markdown = "[" + item.name + "](" + urlStr + item.id.primaryKey + ") #oftodo";
+		Pasteboard.general.string = markdown;
+		new Alert("Copy .md Link", "A markdown formatted link to the selected item has been placed on the clipboard.").show()
+	});
+
+	action.validate = function(selection, sender){
+		// validation code
+		// selection options: tasks, projects, folders, tags, allObjects
+		return (selection.databaseObjects.length === 1)
+	};
+	
+	return action;
+})();
