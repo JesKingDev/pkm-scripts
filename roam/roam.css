@@ -1,5 +1,6 @@
+/* Roam CSS for OmniFocus integration */
 /* Adds an OmniFocus icon to any links out to the OmniFocus app */
-a[href*='omnifocus://']:before{
+a[href*='omnifocus://']:before {
   content: ' ';
   width: 20px;
   height: 20px;
