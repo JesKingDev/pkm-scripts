@@ -14,9 +14,7 @@
 	var action = new PlugIn.Action(function(selection, sender){
 		const jiraRegex = /([A-Z]{2,}\-\d+)/g;
 		const projectRegex = /^(.*\[(.+)].*)$/;
-
 		// action code
-
 		// selection options: tasks, projects, folders, tags, allObjects
 		var item = selection.databaseObjects[0]
 		if (item instanceof Folder){
@@ -48,7 +46,6 @@
 			// no worries if the object doesn't have a project
 			//console.log(e);
 		}
-
 
 		Pasteboard.general.string = markdown;
 		new Alert("Copy .md Link", "A markdown formatted link to the selected item has been placed on the clipboard.").show()
