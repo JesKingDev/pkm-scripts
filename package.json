@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "husky": {
     "hooks": {
-      "pre-commit": "npm run prod"
+      "pre-commit": "npm run build"
     }
   },
   "scripts": {
-    "prod": "cp omnifocus/*.*js dist && cp roam/*.css dist",
+    "build": "cp omnifocus/*.*js dist && cp roam/*.css dist && cp README.md dist/index.md",
     "postinstall": "node ./node_modules/husky/lib/bin install",
     "deploy": "git push origin `git subtree split --prefix dist main`:gh-pages --force"
   },
@@ -15,4 +15,3 @@
     "husky": "^7.0.4"
   }
 }
-`
