@@ -1,0 +1,15 @@
+
+/* change default 3 column downloads to 2 column */
+@media print, screen and (max-width: 480px) {
+  .downloads li, .downloads li + li {
+    width:49.6%;
+  }
+}
+
+.downloads li + li{
+  width:134px;
+}
+
+ul.downloads {
+  width: 270px;
+}
