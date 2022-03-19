@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "husky": {
     "hooks": {
-      "pre-commit": "npm run build"
+      "pre-commit": "npm run build",
+      "post-commit": "npm run deploy"
     }
   },
   "scripts": {
