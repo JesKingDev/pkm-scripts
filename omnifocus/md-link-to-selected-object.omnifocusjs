@@ -12,6 +12,7 @@
 }*/
 (() => {
 	var action = new PlugIn.Action(function(selection, sender){
+		const jiraRegex = /([A-Z]{2,}\-\d+)/g;
 		// action code
 		// selection options: tasks, projects, folders, tags, allObjects
 		var item = selection.databaseObjects[0]
@@ -21,6 +22,15 @@
 			var urlStr = "omnifocus:///task/"
 		}
 		var markdown = "[" + item.name + "](" + urlStr + item.id.primaryKey + ") #oftodo";
+
+
+		/* If the task text contains any JIRA issue keys, include links so we can link notes related to the same ticket */
+		let tickets = item.name.match(jiraRegex);
+
+		for (var index in tickets) {
+			markdown += " #" + tickets[index];
+		}
+
 		Pasteboard.general.string = markdown;
 		new Alert("Copy .md Link", "A markdown formatted link to the selected item has been placed on the clipboard.").show()
 	});
