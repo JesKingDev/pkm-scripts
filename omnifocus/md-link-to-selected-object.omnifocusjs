@@ -13,6 +13,7 @@
 (() => {
 	var action = new PlugIn.Action(function(selection, sender){
 		const jiraRegex = /([A-Z]{2,}\-\d+)/g;
+		const projectRegex = /^(.*\[(.+)].*)$/;
 		// action code
 		// selection options: tasks, projects, folders, tags, allObjects
 		var item = selection.databaseObjects[0]
@@ -29,6 +30,21 @@
 
 		for (var index in tickets) {
 			markdown += " #" + tickets[index];
+		}
+
+		/* Tag the project as well. Supports using a shorter name/key in brackets */
+		try {
+			var projectNameMatch = item.containingProject.name.match(projectRegex);
+			if (projectNameMatch.length > 2){
+				var projectName = projectNameMatch[2];
+				if (projectName) {
+					markdown += " #[[" + projectName + "]]"
+				}
+			}
+
+		} catch (e) {
+			// no worries if the object doesn't have a project
+			//console.log(e);
 		}
 
 		Pasteboard.general.string = markdown;
