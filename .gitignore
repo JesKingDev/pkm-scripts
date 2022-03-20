@@ -1,2 +1,7 @@
 .idea
 .snippets
+/dist/Gemfile
+/dist/index.markdown
+/dist/Gemfile.lock
+/dist/about.markdown
+/dist/404.html
