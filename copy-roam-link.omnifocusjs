@@ -3,7 +3,7 @@
 	"targets": ["omnifocus"],
 	"author": "Jessica King",
 	"identifier": "com.jessicaking.create-markdown-link",
-	"version": "1.0",
+	"version": "1.1",
 	"description": "Copies to the clipboard a Roam Research formatted link to the selected task, project, or folder.",
 	"label": "Copy Roam Link",
 	"shortLabel": "Copy Roam Link",
@@ -14,47 +14,56 @@
 	var action = new PlugIn.Action(function(selection, sender){
 		const jiraRegex = /([A-Z]{2,}\-\d+)/g;
 		const projectRegex = /^(.*\[(.+)].*)$/;
-		// action code
-		// selection options: tasks, projects, folders, tags, allObjects
-		var item = selection.databaseObjects[0]
-		if (item instanceof Folder){
-			var urlStr = "omnifocus:///folder/"
-		} else {
-			var urlStr = "omnifocus:///task/"
-		}
-		var markdown = "[" + item.name + "](" + urlStr + item.id.primaryKey + ") #oftodo";
+
+		var markdown = "";
+
+		for (const item of selection.databaseObjects) {
+
+			// action code
+			// selection options: tasks, projects, folders, tags, allObjects
+
+			if (item instanceof Folder) {
+				var urlStr = "omnifocus:///folder/"
+			} else {
+				var urlStr = "omnifocus:///task/"
+			}
+			markdown += "[" + item.name + "](" + urlStr + item.id.primaryKey + ") #oftodo";
 
 
-		/* If the task text contains any JIRA issue keys, include links so we can link notes related to the same ticket */
-		let tickets = item.name.match(jiraRegex);
+			/* If the task text contains any JIRA issue keys, include links so we can link notes related to the same ticket */
+			let tickets = item.name.match(jiraRegex);
 
-		for (var index in tickets) {
-			markdown += " #" + tickets[index];
-		}
+			for (var index in tickets) {
+				markdown += " #" + tickets[index];
+			}
 
-		/* Tag the project as well. Supports using a shorter name/key in brackets */
-		try {
-			var projectNameMatch = item.containingProject.name.match(projectRegex);
-			if (projectNameMatch.length > 2){
-				var projectName = projectNameMatch[2];
+			/* Tag the project as well. Supports using a shorter name/key in brackets */
+			try {
+				var projectName = item.containingProject.name;
+				var projectNameMatch = projectName.match(projectRegex);
+				if (projectNameMatch && projectNameMatch.length > 2) {
+					projectName = projectNameMatch[2];
+				}
+
 				if (projectName) {
 					markdown += " #[[" + projectName + "]]"
 				}
+
+			} catch (e) {
+				// no worries if the object doesn't have a project
+				//console.log(e);
 			}
+			markdown += "\n";
 
-		} catch (e) {
-			// no worries if the object doesn't have a project
-			//console.log(e);
 		}
-
 		Pasteboard.general.string = markdown;
-		new Alert("Copy .md Link", "A markdown formatted link to the selected item has been placed on the clipboard.").show()
+		new Alert("Copy .md Link", "A markdown formatted link to the selected item(s) has been placed on the clipboard.").show()
 	});
 
 	action.validate = function(selection, sender){
 		// validation code
 		// selection options: tasks, projects, folders, tags, allObjects
-		return (selection.databaseObjects.length === 1)
+		return (selection.databaseObjects.length >= 1)
 	};
 	
 	return action;
