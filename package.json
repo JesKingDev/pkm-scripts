@@ -9,7 +9,7 @@
   },
   "scripts": {
     "clean": "rm -f dist/*.*js && rm -f dist/*.zip",
-    "build": "doctoc *.md && cp omnifocus/*.*js dist/ && cp *.md dist/ && mv dist/README.md dist/index.md",
+    "build": "doctoc OmniFocus.md && doctoc Roam.md && cp omnifocus/*.*js dist/ && cp *.md dist/ && mv dist/README.md dist/index.md",
     "compress": "zip-build omnifocus -t \"%NAME%_%VERSION%.%EXT%\"",
     "postinstall": "node ./node_modules/husky/lib/bin install",
     "deploy": "git push origin `git subtree split --prefix dist main`:gh-pages --force"
