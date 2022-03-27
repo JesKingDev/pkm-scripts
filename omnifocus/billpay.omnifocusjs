@@ -1,0 +1,78 @@
+/*{
+	"type": "action",
+	"targets": ["omnifocus"],
+	"author": "Jessica King",
+	"identifier": "com.jessicaking.omnifocus-billpay",
+	"version": "1.0",
+	"description": "Plugin",
+	"label": "Run Billpay",
+	"shortLabel": "Billpay",
+	"paletteLabel": "Billpay",
+	"image": "dollarsign.circle.fill"
+}*/
+(() => {
+    var action = new PlugIn.Action(function(selection, sender){
+
+        /* Finds amounts in parentheses, with or without a '$' and with or without decimal places.
+         * Ex. (48), ($48), ($48.50)
+        */
+
+        const amountRegex = /(.*)[(]\$?([\d,]+\.?\d*)[)]/;
+        var items = new Array()
+        var exportMarkdown = "";
+        var runningTotal = 0;
+
+        /* create markdown table */
+        exportMarkdown += '| paid | description | due on | amount | running_total |\n' +
+            '| ---- | ----------- | ------ | ------ | ------------- |\n';
+
+        document.windows[0].content.rootNode.apply((item) => {
+            if (item.object instanceof Task) {
+                items.push(item.object);
+            }
+        })
+
+        for (const item of items) {
+            if (!item){
+                continue;
+            }
+            /* create link back to the item in omnifocus */
+            let urlStr = "omnifocus:///task/" + item.id.primaryKey;
+
+
+            /* Get the amount from the item name */
+            let amountMatch = item.name.match(amountRegex);
+
+            if (amountMatch){
+                let amount = parseFloat(amountMatch[2].replace(",", ""));
+                runningTotal += amount;
+
+                console.log ("Found " + amount[1] + " in " + item.name);
+                let dueDate = "";
+                if (item.effectiveDueDate){
+                    dueDate = item.effectiveDueDate.toDateString();
+                }
+
+                let checkbox =
+
+                exportMarkdown += '| ' +
+                    (item.completed ? '[x]' : '[ ]') +
+                    ' | ' + amountMatch[1].replace("|", "\\|") +
+                    ' | ' + dueDate + ' | ' +
+                    amount.toFixed(2) +
+                    ' | ' + runningTotal.toFixed(2) + ' |\n';
+
+            }
+
+
+        }
+       Pasteboard.general.string = exportMarkdown;
+      new Alert("Billpay Export Complete", "The billpay export has been placed on the clipboard").show()
+    });
+
+    action.validate = function(selection, sender){
+        return (Perspective.Custom.all.length > 0)
+    };
+
+    return action;
+})();

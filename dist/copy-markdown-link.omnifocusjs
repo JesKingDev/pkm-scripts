@@ -4,10 +4,10 @@
 	"author": "Jessica King",
 	"identifier": "com.jessicaking.create-markdown-link",
 	"version": "1.1",
-	"description": "Copies to the clipboard a Roam Research formatted link to the selected task, project, or folder.",
-	"label": "Copy Roam Link",
-	"shortLabel": "Copy Roam Link",
-	"paletteLabel": "Roam link",
+	"description": "Copies to the clipboard a markdown link to the selected task, project, or folder.",
+	"label": "Copy Markdown Link",
+	"shortLabel": "Copy .md Link",
+	"paletteLabel": "Copy Markdown link",
 	"image": "link.badge.plus"
 }*/
 (() => {
@@ -38,6 +38,8 @@
 			}
 
 			/* Tag the project as well. Supports using a shorter name/key in brackets */
+			/* disabling as it makes the backlinks noisy */
+			let projectTagEnabled = false;
 			try {
 				var projectName = item.containingProject.name;
 				var projectNameMatch = projectName.match(projectRegex);
@@ -45,7 +47,7 @@
 					projectName = projectNameMatch[2];
 				}
 
-				if (projectName) {
+				if (projectTagEnabled && projectName) {
 					markdown += " #[[" + projectName + "]]"
 				}
 
