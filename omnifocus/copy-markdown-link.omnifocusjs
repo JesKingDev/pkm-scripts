@@ -3,7 +3,7 @@
 	"targets": ["omnifocus"],
 	"author": "Jessica King",
 	"identifier": "com.jessicaking.create-markdown-link",
-	"version": "1.1",
+	"version": "1.1.1",
 	"description": "Copies to the clipboard a markdown link to the selected task, project, or folder.",
 	"label": "Copy Markdown Link",
 	"shortLabel": "Copy .md Link",
@@ -27,15 +27,15 @@
 			} else {
 				var urlStr = "omnifocus:///task/"
 			}
-			markdown += "[" + item.name + "](" + urlStr + item.id.primaryKey + ") #oftodo";
-
 
 			/* If the task text contains any JIRA issue keys, include links so we can link notes related to the same ticket */
 			let tickets = item.name.match(jiraRegex);
 
 			for (var index in tickets) {
-				markdown += " #" + tickets[index];
+				markdown += "[[" + tickets[index] + "]] ";
 			}
+
+			markdown += "[" + item.name + "](" + urlStr + item.id.primaryKey + ") #oftodo";
 
 			/* Tag the project as well. Supports using a shorter name/key in brackets */
 			/* disabling as it makes the backlinks noisy */
@@ -48,7 +48,7 @@
 				}
 
 				if (projectTagEnabled && projectName) {
-					markdown += " #[[" + projectName + "]]"
+					markdown += " [[" + projectName + "]]"
 				}
 
 			} catch (e) {
