@@ -1,0 +1,137 @@
+// Variables
+@omnifocus-logo-primary: rgba(164, 97, 245, 0.80); // purple
+@omnifocus-logo-secondary: white;
+@tag-hover-bg: #222280;
+@tag-hover-text: white;
+@tag-default-bg: #bde1d3;
+@tag-default-text: white;
+@tag-text-secondary: #cbc1c1;
+
+
+// Custom Tag Colors
+@custom-tags: maybe,on-hold;
+@custom-tags-bg: light-grey,light-grey;
+@custom-tags-text: @tag-default-text,@tag-default-text;
+
+
+// ------------
+// Mood Journal
+// ------------
+// In Obsidian, use a nested tag - like #feeling/happy
+// where prefix is `feeling`
+// mood tag is `happy`
+@mood-tag-prefix: feeling;
+// add lines for each tag like: moodtag backgroundcolor  textcolor;
+@mood-tags: manic, grateful, happy, positive, productive, accomplished, successful, unproductive, nervous, anxious, paranoid, afraid, low;
+@mood-tags-bg: #fcf859, #a2ee63, #abee63, #abee63, #6ca625, #6ca625, #6ca625, #fca259, #a64c25, #a64c25, #a63025, #c40909, #810303;
+@mood-tags-text: @tag-default-text,@tag-default-text,@tag-default-text,@tag-default-text,@tag-default-text,@tag-default-text,@tag-default-text,@tag-text-secondary,@tag-text-secondary,@tag-text-secondary,@tag-text-secondary,@tag-text-secondary,@tag-text-secondary;
+
+// Mixin for creating a single tag style
+.mixin-tag(@tag-name,@tag-bg,@tag-text) {
+
+  @tag-bg-apply: if((iscolor(@tag-bg)), @tag-bg, @tag-default-bg);
+  @tag-text-apply: if((iscolor(@tag-text)), @tag-text, @tag-default-text);
+
+  theme-light .frontmatter-container &.tag, .theme-light {
+    a {
+      &.tag[href^="#@{tag-name}"] {
+        color: @tag-text-apply;
+        background-color: @tag-bg-apply;
+      }
+    }
+  }
+}
+
+// Mixin for creating all tag styles
+.mixin-tags () {
+  // each defines @value, @key and @index
+  each(@mood-tags, {
+    @tag-name: @value;
+    @tag-color-bg: extract(@mood-tags-bg, @index);
+    @tag-color-text: extract(@mood-tags-text, @index);
+    .mixin-tag("@{mood-tag-prefix}/@{tag-name}", @tag-color-bg, @tag-color-text);
+  });
+  // each defines @value, @key and @index
+  each(@custom-tags, {
+    @tag-name: @value;
+    @tag-color-bg: extract(@mood-tags-bg, @index);
+    @tag-color-text: extract(@mood-tags-text, @index);
+    .mixin-tag(@tag-name, @tag-color-bg, @tag-color-text);
+  });
+};
+
+.mixin-tags();
+
+// there's a another one in preview mode maybe
+// .theme-light .cm-s-obsidian span.cm-hashtag
+theme-light .frontmatter-container &.tag, .theme-light {
+
+  tag {
+    background-color: @tag-default-bg;
+    border: none;
+    color: @tag-default-text;
+    font-size: 11px;
+    padding: 1px 8px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 0px 0px;
+    cursor: pointer;
+    border-radius: 14px;
+  }
+
+  a {
+    &.tag:hover {
+      color: @tag-hover-text;
+      background-color: @tag-hover-bg;
+    }
+
+    &.tag[href^="#obsidian"] {
+      background-color: #4d3ca6;
+    }
+
+    &.tag[href^="#important"] {
+      background-color: red;
+    }
+
+    &.tag[href^="#complete"] {
+      background-color: green;
+    }
+
+    &.tag[href^="#inprogress"] {
+      background-color: orange;
+    }
+  }
+}
+
+// Add icons to some tags
+
+  .frontmatter-container &.tag, .theme-light {
+    a {
+      &.tag[href^="#meeting"]::before,
+      &.tag[href^= "#event"]::before {
+        content: "🗓 ";
+      }
+
+      &.tag[href^="#maybe"]::before,
+      &.tag[href^="#on-hold"]::before {
+        content: "⏸ ";
+      }
+
+
+    }
+  }
+  .cm-s-obsidian span.cm-formatting-hashtag{
+    &.cm-tag-meeting::before,
+    &.cm-tag-event::before{
+      content:"🗓 ";
+    }
+
+    &.cm-tag-on-hold::before,
+    &.cm-tag-maybe::before{
+      content:"⏸ ";
+    }
+  }
+
+// body > div.app-container.is-left-sidedock-collapsed.is-right-sidedock-collapsed > div.horizontal-main-container > div > div.workspace-split.mod-vertical.mod-root > div > div > div.view-content > div.markdown-source-view.cm-s-obsidian.mod-cm6.is-folding.is-line-wrap.is-live-preview > div.cm-editor.ͼ1.ͼ2.ͼ4.ͼr > div.cm-scroller > div.cm-contentContainer > div > div.HyperMD-list-line.HyperMD-list-line-1.cm-active.cm-line > span.cm-formatting.cm-formatting-hashtag.cm-hashtag.cm-hashtag-begin.cm-list-1.cm-meta.cm-tag-meeting::before,
+// body > div.app-container.is-left-sidedock-collapsed.is-right-sidedock-collapsed > div.horizontal-main-container > div > div.workspace-split.mod-vertical.mod-root > div > div > div.view-content > div.markdown-source-view.cm-s-obsidian.mod-cm6.is-folding.is-line-wrap.is-live-preview > div.cm-editor.cm-focused.ͼ1.ͼ2.ͼ4.ͼr > div.cm-scroller > div.cm-contentContainer > div > div:nth-child(11) > span.cm-formatting.cm-formatting-hashtag.cm-hashtag.cm-hashtag-begin.cm-list-1.cm-meta.cm-tag-meeting::before{
