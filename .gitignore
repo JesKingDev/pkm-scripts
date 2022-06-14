@@ -5,3 +5,4 @@
 /dist/Gemfile.lock
 /dist/about.markdown
 /dist/404.html
+/node_modules/
