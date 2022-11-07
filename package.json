@@ -1,6 +1,6 @@
 {
   "name": "jeskingdev-pkm-scripts",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "husky": {
     "hooks": {
       "pre-commit": "npm run clean && npm run build && npm run compress",
@@ -8,7 +8,7 @@
     }
   },
   "scripts": {
-    "clean": "rm -f dist/*.*js && rm -f dist/*.zip",
+    "clean": "rm -f dist/*.*js && rm -f dist/*.css && rm -f dist/*.zip",
     "build": "doctoc OmniFocus.md && doctoc Roam.md && cp omnifocus/*.*js dist/ && cp *.md dist/ && mv dist/README.md dist/index.md",
     "compress": "zip-build omnifocus -t \"%NAME%_%VERSION%.%EXT%\"",
     "postinstall": "node ./node_modules/husky/lib/bin install",
@@ -17,6 +17,13 @@
   },
   "devDependencies": {
     "husky": "^7.0.4",
+    "stylelint": "^14.14.1",
+    "stylelint-config-standard": "^29.0.0",
     "zip-build": "^1.6.0"
+  },
+  "dependencies": {
+    "combine-files": "^1.1.8",
+    "install": "^0.13.0",
+    "npm": "^8.19.3"
   }
 }
