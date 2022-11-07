@@ -1,8 +1,17 @@
-// CSS for styling within Roam Research
+// CSS for styling within Obsidian
 
 // OmniFocus integration
 @import "omnifocus.less";
-@import "bullets.less";
+
+// commenting out as it appears this css hasn't been updated in some time
+// @import "bullets.less";
+
+// adds styles for tags - colors, pills, etc.
 @import "tags.less";
-@import "rainbow-indent-colors.less";
-@import "lizardmen_zettlekasten.less";
+
+// adds bullet indentation similar to Roam Research but with lines of differing colors
+//not currently working :(
+// @import "rainbow-indent-colors.less";
+
+/* styles for checkboxes and checklist plugin */
+@import (inline,css) "checkboxes.less";

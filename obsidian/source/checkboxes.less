@@ -1,0 +1,50 @@
+body {
+    --checklist-done-decoration: none;
+    --checklist-done-color: var(--text-success);
+}
+
+/* Tasks Done */
+
+.markdown-preview-view ul > li.task-list-item.is-checked {
+  text-decoration: var(--checklist-done-decoration);
+  color: var(--checklist-done-color);
+}
+
+.markdown-preview-view ol > li.task-list-item.is-checked {
+  text-decoration: var(--checklist-done-decoration);
+  color: var(--checklist-done-color);
+}
+
+ul > li.task-list-item[data-task="x"],
+ul > li.task-list-item[data-task="X"] {
+    text-decoration: var(--checklist-done-decoration);
+    color: var(--checklist-done-color);
+}
+
+.markdown-source-view.mod-cm6 .HyperMD-task-line[data-task="x"],
+.markdown-source-view.mod-cm6 .HyperMD-task-line[data-task="X"] {
+    text-decoration: var(--checklist-done-decoration);
+    color: var(--checklist-done-color);
+}
+
+/* Tasks To Do */
+
+.markdown-preview-view ul > li.task-list-item.is-not-checked {
+    color: var(--interactive-accent-hover);
+}
+
+.markdown-preview-view ol > li.task-list-item.is-not-checked {
+    color: var(--interactive-accent-hover);
+}
+
+ul > li.task-list-item[data-task=""],
+ul > li.task-list-item[data-task=""] {
+    color: var(--interactive-accent-hover);
+}
+
+.markdown-source-view.mod-cm6 .HyperMD-task-line[data-task=" "]{
+    color: var(--interactive-accent-hover);
+}
+
+
+
