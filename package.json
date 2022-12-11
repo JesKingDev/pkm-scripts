@@ -16,6 +16,7 @@
     "obsidian": "cp dist/obsidian.css \"/Users/jessicaking/Library/Mobile Documents/iCloud~md~obsidian/Documents/_pkm/.obsidian/snippets/jeskingdev_pkm_scripts.css\""
   },
   "devDependencies": {
+    "compile-less-cli": "^1.8.13",
     "husky": "^7.0.4",
     "stylelint": "^14.14.1",
     "stylelint-config-standard": "^29.0.0",
