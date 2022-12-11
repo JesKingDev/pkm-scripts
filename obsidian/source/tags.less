@@ -9,9 +9,9 @@
 
 
 // Custom Tag Colors
-@custom-tags: maybe,on-hold;
-@custom-tags-bg: light-grey,light-grey;
-@custom-tags-text: @tag-default-text,@tag-default-text;
+@custom-tags: maybe, on-hold;
+@custom-tags-bg: light-grey, light-grey;
+@custom-tags-text: @tag-default-text, @tag-default-text;
 
 
 // ------------
@@ -24,7 +24,7 @@
 // add lines for each tag like: moodtag backgroundcolor  textcolor;
 @mood-tags: manic, grateful, happy, positive, productive, accomplished, successful, unproductive, nervous, anxious, paranoid, afraid, low;
 @mood-tags-bg: #fcf859, #a2ee63, #abee63, #abee63, #6ca625, #6ca625, #6ca625, #fca259, #a64c25, #a64c25, #a63025, #c40909, #810303;
-@mood-tags-text: @tag-default-text,@tag-default-text,@tag-default-text,@tag-default-text,@tag-default-text,@tag-default-text,@tag-default-text,@tag-text-secondary,@tag-text-secondary,@tag-text-secondary,@tag-text-secondary,@tag-text-secondary,@tag-text-secondary;
+@mood-tags-text: @tag-default-text, @tag-default-text, @tag-default-text, @tag-default-text, @tag-default-text, @tag-default-text, @tag-default-text, @tag-text-secondary, @tag-text-secondary, @tag-text-secondary, @tag-text-secondary, @tag-text-secondary, @tag-text-secondary;
 
 // Mixin for creating a single tag style
 .mixin-tag(@tag-name,@tag-bg,@tag-text) {
@@ -58,7 +58,9 @@
     @tag-color-text: extract(@mood-tags-text, @index);
     .mixin-tag(@tag-name, @tag-color-bg, @tag-color-text);
   });
-};
+}
+
+;
 
 .mixin-tags();
 
@@ -106,32 +108,33 @@ theme-light .frontmatter-container &.tag, .theme-light {
 
 // Add icons to some tags
 
-  .frontmatter-container &.tag, .theme-light {
-    a {
-      &.tag[href^="#meeting"]::before,
-      &.tag[href^= "#event"]::before {
-        content: "🗓 ";
-      }
-
-      &.tag[href^="#maybe"]::before,
-      &.tag[href^="#on-hold"]::before {
-        content: "⏸ ";
-      }
-
-
+.frontmatter-container &.tag, .theme-light {
+  a {
+    &.tag[href^="#meeting"]::before,
+    &.tag[href^= "#event"]::before {
+      content: "🗓 ";
     }
+
+    &.tag[href^="#maybe"]::before,
+    &.tag[href^="#on-hold"]::before {
+      content: "⏸ ";
+    }
+
+
   }
-  .cm-s-obsidian span.cm-formatting-hashtag{
-    &.cm-tag-meeting::before,
-    &.cm-tag-event::before{
-      content:"🗓 ";
-    }
+}
 
-    &.cm-tag-on-hold::before,
-    &.cm-tag-maybe::before{
-      content:"⏸ ";
-    }
+.cm-s-obsidian span.cm-formatting-hashtag {
+  &.cm-tag-meeting::before,
+  &.cm-tag-event::before {
+    content: "🗓 ";
   }
+
+  &.cm-tag-on-hold::before,
+  &.cm-tag-maybe::before {
+    content: "⏸ ";
+  }
+}
 
 // body > div.app-container.is-left-sidedock-collapsed.is-right-sidedock-collapsed > div.horizontal-main-container > div > div.workspace-split.mod-vertical.mod-root > div > div > div.view-content > div.markdown-source-view.cm-s-obsidian.mod-cm6.is-folding.is-line-wrap.is-live-preview > div.cm-editor.ͼ1.ͼ2.ͼ4.ͼr > div.cm-scroller > div.cm-contentContainer > div > div.HyperMD-list-line.HyperMD-list-line-1.cm-active.cm-line > span.cm-formatting.cm-formatting-hashtag.cm-hashtag.cm-hashtag-begin.cm-list-1.cm-meta.cm-tag-meeting::before,
 // body > div.app-container.is-left-sidedock-collapsed.is-right-sidedock-collapsed > div.horizontal-main-container > div > div.workspace-split.mod-vertical.mod-root > div > div > div.view-content > div.markdown-source-view.cm-s-obsidian.mod-cm6.is-folding.is-line-wrap.is-live-preview > div.cm-editor.cm-focused.ͼ1.ͼ2.ͼ4.ͼr > div.cm-scroller > div.cm-contentContainer > div > div:nth-child(11) > span.cm-formatting.cm-formatting-hashtag.cm-hashtag.cm-hashtag-begin.cm-list-1.cm-meta.cm-tag-meeting::before{
